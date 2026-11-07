@@ -14,8 +14,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAvaliacoesRouteImport } from './routes/_authenticated/avaliacoes'
+import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedExperienciasRouteImport } from './routes/_authenticated/experiencias'
 import { Route as AuthenticatedKidsRouteImport } from './routes/_authenticated/kids'
+import { Route as AuthenticatedPersonagensRouteImport } from './routes/_authenticated/personagens'
 import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
 import { Route as AuthenticatedSessoesRouteImport } from './routes/_authenticated/sessoes'
 import { Route as AuthenticatedPacientesIndexRouteImport } from './routes/_authenticated/pacientes.index'
@@ -46,16 +49,34 @@ const AuthenticatedAvaliacoesRoute = AuthenticatedAvaliacoesRouteImport.update({
   path: '/avaliacoes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedConfiguracoesRoute =
+  AuthenticatedConfiguracoesRouteImport.update({
+    id: '/configuracoes',
+    path: '/configuracoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedExperienciasRoute =
+  AuthenticatedExperienciasRouteImport.update({
+    id: '/experiencias',
+    path: '/experiencias',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedKidsRoute = AuthenticatedKidsRouteImport.update({
   id: '/kids',
   path: '/kids',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPersonagensRoute =
+  AuthenticatedPersonagensRouteImport.update({
+    id: '/personagens',
+    path: '/personagens',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedRelatoriosRoute = AuthenticatedRelatoriosRouteImport.update({
   id: '/relatorios',
   path: '/relatorios',
@@ -90,8 +111,11 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/avaliacoes': typeof AuthenticatedAvaliacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/experiencias': typeof AuthenticatedExperienciasRoute
   '/kids': typeof AuthenticatedKidsRoute
+  '/personagens': typeof AuthenticatedPersonagensRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/sessoes': typeof AuthenticatedSessoesRoute
   '/pacientes/$id': typeof AuthenticatedPacientesIdRoute
@@ -103,8 +127,11 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/avaliacoes': typeof AuthenticatedAvaliacoesRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/experiencias': typeof AuthenticatedExperienciasRoute
   '/kids': typeof AuthenticatedKidsRoute
+  '/personagens': typeof AuthenticatedPersonagensRoute
   '/relatorios': typeof AuthenticatedRelatoriosRoute
   '/sessoes': typeof AuthenticatedSessoesRoute
   '/pacientes/$id': typeof AuthenticatedPacientesIdRoute
@@ -118,8 +145,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/avaliacoes': typeof AuthenticatedAvaliacoesRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/experiencias': typeof AuthenticatedExperienciasRoute
   '/_authenticated/kids': typeof AuthenticatedKidsRoute
+  '/_authenticated/personagens': typeof AuthenticatedPersonagensRoute
   '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
   '/_authenticated/sessoes': typeof AuthenticatedSessoesRoute
   '/_authenticated/pacientes/$id': typeof AuthenticatedPacientesIdRoute
@@ -133,8 +163,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/avaliacoes'
+    | '/configuracoes'
     | '/dashboard'
+    | '/experiencias'
     | '/kids'
+    | '/personagens'
     | '/relatorios'
     | '/sessoes'
     | '/pacientes/$id'
@@ -146,8 +179,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/avaliacoes'
+    | '/configuracoes'
     | '/dashboard'
+    | '/experiencias'
     | '/kids'
+    | '/personagens'
     | '/relatorios'
     | '/sessoes'
     | '/pacientes/$id'
@@ -160,8 +196,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/reset-password'
     | '/_authenticated/avaliacoes'
+    | '/_authenticated/configuracoes'
     | '/_authenticated/dashboard'
+    | '/_authenticated/experiencias'
     | '/_authenticated/kids'
+    | '/_authenticated/personagens'
     | '/_authenticated/relatorios'
     | '/_authenticated/sessoes'
     | '/_authenticated/pacientes/$id'
@@ -213,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAvaliacoesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/configuracoes': {
+      id: '/_authenticated/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/configuracoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -220,11 +266,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/experiencias': {
+      id: '/_authenticated/experiencias'
+      path: '/experiencias'
+      fullPath: '/experiencias'
+      preLoaderRoute: typeof AuthenticatedExperienciasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/kids': {
       id: '/_authenticated/kids'
       path: '/kids'
       fullPath: '/kids'
       preLoaderRoute: typeof AuthenticatedKidsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/personagens': {
+      id: '/_authenticated/personagens'
+      path: '/personagens'
+      fullPath: '/personagens'
+      preLoaderRoute: typeof AuthenticatedPersonagensRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/relatorios': {
@@ -267,8 +327,11 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAvaliacoesRoute: typeof AuthenticatedAvaliacoesRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedExperienciasRoute: typeof AuthenticatedExperienciasRoute
   AuthenticatedKidsRoute: typeof AuthenticatedKidsRoute
+  AuthenticatedPersonagensRoute: typeof AuthenticatedPersonagensRoute
   AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
   AuthenticatedSessoesRoute: typeof AuthenticatedSessoesRoute
   AuthenticatedPacientesIdRoute: typeof AuthenticatedPacientesIdRoute
@@ -278,8 +341,11 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAvaliacoesRoute: AuthenticatedAvaliacoesRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedExperienciasRoute: AuthenticatedExperienciasRoute,
   AuthenticatedKidsRoute: AuthenticatedKidsRoute,
+  AuthenticatedPersonagensRoute: AuthenticatedPersonagensRoute,
   AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
   AuthenticatedSessoesRoute: AuthenticatedSessoesRoute,
   AuthenticatedPacientesIdRoute: AuthenticatedPacientesIdRoute,
