@@ -13,8 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedAvaliacoesRouteImport } from './routes/_authenticated/avaliacoes'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedKidsRouteImport } from './routes/_authenticated/kids'
+import { Route as AuthenticatedRelatoriosRouteImport } from './routes/_authenticated/relatorios'
+import { Route as AuthenticatedSessoesRouteImport } from './routes/_authenticated/sessoes'
 import { Route as AuthenticatedPacientesIndexRouteImport } from './routes/_authenticated/pacientes.index'
+import { Route as AuthenticatedPacientesIdRouteImport } from './routes/_authenticated/pacientes.$id'
 import { Route as AuthenticatedPacientesNovoRouteImport } from './routes/_authenticated/pacientes.novo'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,15 +41,41 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAvaliacoesRoute = AuthenticatedAvaliacoesRouteImport.update({
+  id: '/avaliacoes',
+  path: '/avaliacoes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedKidsRoute = AuthenticatedKidsRouteImport.update({
+  id: '/kids',
+  path: '/kids',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRelatoriosRoute = AuthenticatedRelatoriosRouteImport.update({
+  id: '/relatorios',
+  path: '/relatorios',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSessoesRoute = AuthenticatedSessoesRouteImport.update({
+  id: '/sessoes',
+  path: '/sessoes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPacientesIndexRoute =
   AuthenticatedPacientesIndexRouteImport.update({
     id: '/pacientes/',
     path: '/pacientes/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPacientesIdRoute =
+  AuthenticatedPacientesIdRouteImport.update({
+    id: '/pacientes/$id',
+    path: '/pacientes/$id',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedPacientesNovoRoute =
@@ -58,7 +89,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/avaliacoes': typeof AuthenticatedAvaliacoesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/kids': typeof AuthenticatedKidsRoute
+  '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/sessoes': typeof AuthenticatedSessoesRoute
+  '/pacientes/$id': typeof AuthenticatedPacientesIdRoute
   '/pacientes/novo': typeof AuthenticatedPacientesNovoRoute
   '/pacientes/': typeof AuthenticatedPacientesIndexRoute
 }
@@ -66,7 +102,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/avaliacoes': typeof AuthenticatedAvaliacoesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/kids': typeof AuthenticatedKidsRoute
+  '/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/sessoes': typeof AuthenticatedSessoesRoute
+  '/pacientes/$id': typeof AuthenticatedPacientesIdRoute
   '/pacientes/novo': typeof AuthenticatedPacientesNovoRoute
   '/pacientes': typeof AuthenticatedPacientesIndexRoute
 }
@@ -76,7 +117,12 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/avaliacoes': typeof AuthenticatedAvaliacoesRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/kids': typeof AuthenticatedKidsRoute
+  '/_authenticated/relatorios': typeof AuthenticatedRelatoriosRoute
+  '/_authenticated/sessoes': typeof AuthenticatedSessoesRoute
+  '/_authenticated/pacientes/$id': typeof AuthenticatedPacientesIdRoute
   '/_authenticated/pacientes/novo': typeof AuthenticatedPacientesNovoRoute
   '/_authenticated/pacientes/': typeof AuthenticatedPacientesIndexRoute
 }
@@ -86,7 +132,12 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/avaliacoes'
     | '/dashboard'
+    | '/kids'
+    | '/relatorios'
+    | '/sessoes'
+    | '/pacientes/$id'
     | '/pacientes/novo'
     | '/pacientes/'
   fileRoutesByTo: FileRoutesByTo
@@ -94,7 +145,12 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/reset-password'
+    | '/avaliacoes'
     | '/dashboard'
+    | '/kids'
+    | '/relatorios'
+    | '/sessoes'
+    | '/pacientes/$id'
     | '/pacientes/novo'
     | '/pacientes'
   id:
@@ -103,7 +159,12 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/reset-password'
+    | '/_authenticated/avaliacoes'
     | '/_authenticated/dashboard'
+    | '/_authenticated/kids'
+    | '/_authenticated/relatorios'
+    | '/_authenticated/sessoes'
+    | '/_authenticated/pacientes/$id'
     | '/_authenticated/pacientes/novo'
     | '/_authenticated/pacientes/'
   fileRoutesById: FileRoutesById
@@ -145,6 +206,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/avaliacoes': {
+      id: '/_authenticated/avaliacoes'
+      path: '/avaliacoes'
+      fullPath: '/avaliacoes'
+      preLoaderRoute: typeof AuthenticatedAvaliacoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -152,11 +220,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/kids': {
+      id: '/_authenticated/kids'
+      path: '/kids'
+      fullPath: '/kids'
+      preLoaderRoute: typeof AuthenticatedKidsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/relatorios': {
+      id: '/_authenticated/relatorios'
+      path: '/relatorios'
+      fullPath: '/relatorios'
+      preLoaderRoute: typeof AuthenticatedRelatoriosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sessoes': {
+      id: '/_authenticated/sessoes'
+      path: '/sessoes'
+      fullPath: '/sessoes'
+      preLoaderRoute: typeof AuthenticatedSessoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/pacientes/': {
       id: '/_authenticated/pacientes/'
       path: '/pacientes'
       fullPath: '/pacientes/'
       preLoaderRoute: typeof AuthenticatedPacientesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pacientes/$id': {
+      id: '/_authenticated/pacientes/$id'
+      path: '/pacientes/$id'
+      fullPath: '/pacientes/$id'
+      preLoaderRoute: typeof AuthenticatedPacientesIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/pacientes/novo': {
@@ -170,13 +266,23 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAvaliacoesRoute: typeof AuthenticatedAvaliacoesRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedKidsRoute: typeof AuthenticatedKidsRoute
+  AuthenticatedRelatoriosRoute: typeof AuthenticatedRelatoriosRoute
+  AuthenticatedSessoesRoute: typeof AuthenticatedSessoesRoute
+  AuthenticatedPacientesIdRoute: typeof AuthenticatedPacientesIdRoute
   AuthenticatedPacientesNovoRoute: typeof AuthenticatedPacientesNovoRoute
   AuthenticatedPacientesIndexRoute: typeof AuthenticatedPacientesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAvaliacoesRoute: AuthenticatedAvaliacoesRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedKidsRoute: AuthenticatedKidsRoute,
+  AuthenticatedRelatoriosRoute: AuthenticatedRelatoriosRoute,
+  AuthenticatedSessoesRoute: AuthenticatedSessoesRoute,
+  AuthenticatedPacientesIdRoute: AuthenticatedPacientesIdRoute,
   AuthenticatedPacientesNovoRoute: AuthenticatedPacientesNovoRoute,
   AuthenticatedPacientesIndexRoute: AuthenticatedPacientesIndexRoute,
 }
