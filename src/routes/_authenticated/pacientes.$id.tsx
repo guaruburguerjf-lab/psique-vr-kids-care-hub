@@ -36,7 +36,7 @@ function PatientDetail() {
   async function remove() {
     if (!confirm("Excluir definitivamente este paciente e todos os registros vinculados?")) return;
     const { error } = await supabase.from("patients").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries();
     toast.success("Paciente excluído.");
     navigate({ to: "/pacientes" });

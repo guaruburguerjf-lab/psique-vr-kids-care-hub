@@ -36,7 +36,7 @@ export function GuardianSection({ patientId, required }: { patientId: string; re
   async function submit(e: FormEvent) {
     e.preventDefault();
     const parsed = guardianSchema.safeParse(v);
-    if (!parsed.success) return toast.error(parsed.error.issues[0].message);
+    if (!parsed.success) return void toast.error(parsed.error.issues[0]?.message ?? "Dados inválidos");
     const g = parsed.data;
     setBusy(true);
     const { error } = await supabase.from("guardians").insert({
@@ -48,7 +48,7 @@ export function GuardianSection({ patientId, required }: { patientId: string; re
       authorization_notes: g.authorization_notes || null,
     });
     setBusy(false);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     toast.success("Responsável cadastrado.");
     setV(empty); setOpen(false);
     qc.invalidateQueries({ queryKey: key });
@@ -57,7 +57,7 @@ export function GuardianSection({ patientId, required }: { patientId: string; re
   async function remove(id: string) {
     if (!confirm("Remover este responsável?")) return;
     const { error } = await supabase.from("guardians").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries({ queryKey: key });
   }
 
@@ -65,7 +65,7 @@ export function GuardianSection({ patientId, required }: { patientId: string; re
     const { error } = await supabase.from("guardians").update({
       authorization_granted: granted, authorization_date: granted ? new Date().toISOString().slice(0, 10) : null,
     }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries({ queryKey: key });
   }
 

@@ -40,9 +40,9 @@ function Settings() {
     e.preventDefault();
     if (!data) return;
     const parsed = schema.safeParse(v);
-    if (!parsed.success) return toast.error(parsed.error.issues[0].message);
+    if (!parsed.success) return void toast.error(parsed.error.issues[0]?.message ?? "Dados inválidos");
     const { error } = await supabase.from("profiles").update(parsed.data).eq("id", data.id);
-    if (error) return toast.error(error.message);
+    if (error) return void toast.error(error.message);
     qc.invalidateQueries({ queryKey: ["profile"] });
     toast.success("Perfil atualizado.");
   }
