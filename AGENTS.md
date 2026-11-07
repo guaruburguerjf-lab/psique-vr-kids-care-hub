@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Architecture rules
+- Single-admin model: the first auth account gets the `admin` role via trigger; public signup is disabled. Why: only one psychologist uses v1.
+- Every private table has `owner_id` and RLS `owner_id = auth.uid() AND is_admin()`; child rows also require `owns_patient()`. Why: clinical records tied to the authenticated admin.
+- Headset age limit is enforced in the database (`enforce_vr_age` trigger) and mirrored in `src/lib/patients.ts`. Why: never rely on UI alone.
+- Audit logs are written only by triggers and are read-only for clients. Why: tamper resistance.
+- Protected pages live under `src/routes/_authenticated/` (client-only gate). Why: session is in browser storage.
